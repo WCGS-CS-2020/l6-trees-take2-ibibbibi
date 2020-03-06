@@ -1,0 +1,89 @@
+﻿using System;
+
+namespace help
+{
+    class Node
+    {
+        public int value;
+        public Node left;
+        public Node right;
+        public void DisplayNode()
+        {
+            Console.Write(value + " ");
+        }
+
+        public Node(int first)
+        {
+            value = first;
+            left = null;
+            right = null;
+
+
+            //since any newly added node will initially not connect to anythinng
+        }
+    }
+
+    class Tree
+    {
+        Node top;
+
+        public Tree(int first)
+        {
+            top = new Node(first);
+        }
+
+        public void addNode(int value)
+        {
+            if (top == null)
+            {
+                Node NewNode = new Node(value);
+                top = NewNode;
+                return; // adding the first node if tree is empty
+            }
+
+            Node CurrentNode = top;
+            bool added = false; //means the tree stops trying to add nodes once the command has been executed
+            do
+            {
+                if (value < CurrentNode.value)
+                {
+                    if (CurrentNode.left == null)
+                    {
+                        Node NewNode = new Node(value);
+                        CurrentNode.left = NewNode;
+                        added = true; //adds new node to left
+                    }
+                    else
+                    {
+                        CurrentNode = CurrentNode.left; //moves left
+                    }
+                }
+
+                if (value >= CurrentNode.value)
+                {
+                    if (CurrentNode.right == null)
+                    {
+                        Node NewNode = new Node(value);
+                        CurrentNode.right = NewNode;
+                        added = true; //adds new node to right
+                    }
+                    else
+                    {
+                        CurrentNode = CurrentNode.right; //moves right
+                    }
+                }
+
+            } while (!added);
+
+        }
+        static void Main()
+        {
+            Tree imtrying = new Tree(5);
+            imtrying.addNode(6);
+            imtrying.addNode(4);
+        }
+    }
+
+    
+
+}
